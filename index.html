@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CDN - Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <!-- fullcalendar CSS -->
+    <link rel="stylesheet" href="fullcalendar/packages/core/main.css" />
+    <link rel="stylesheet" href="fullcalendar/packages/daygrid/main.css" />
+
+    <!-- fullcalendar JS -->
+    <script src="fullcalendar/packages/core/main.js"></script>
+    <script src="fullcalendar/packages/daygrid/main.js"></script>
+    <script src="fullcalendar/packages/interaction/main.js"></script>
+    <script src="fullcalendar/packages/core/locales/pt-br.js"></script>
+
+    <script>
+      var demoEvents = [
+        {
+          id: 'a',
+          title: 'Event 01',
+          start: '2020-05-05 15:05:00',
+          end: '2020-05-05 16:05:00',
+          color: 'blue',
+          textColor: 'white',
+        },
+        {
+          id: 'b',
+          title: 'Event 02',
+          start: '2020-05-06 15:10:00',
+          end: '2020-05-06 16:30:00',
+          color: 'green',
+          textColor: 'white',
+        },
+        {
+          id: 'c',
+          title: 'Event 03',
+          start: '2020-06-07 15:10:00',
+          end: '2020-06-07 16:30:00',
+          color: 'yellow',
+        },
+        {
+          id: 'd',
+          title: 'Event 04',
+          start: '2020-06-08 15:20:00',
+          end: '2020-06-08 16:40:00',
+          color: 'red',
+          textColor: 'white',
+        },
+        {
+          id: 'e',
+          title: 'Event 05',
+          start: '2020-06-08 16:15:00',
+          end: '2020-06-08 17:10:00',
+          color: 'red',
+          textColor: 'white',
+        },
+        {
+          id: 'f',
+          title: 'Event 06',
+          start: '2020-06-08 16:40:00',
+          end: '2020-06-08 17:00:00',
+          color: 'red',
+          textColor: 'white',
+        },
+      ];
+      document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: ['dayGrid', 'interaction'],
+          locale: 'pt-br',
+          editable: true,
+          eventLimit: true,
+          events: demoEvents,
+          eventClick: function (info) {
+            info.jsEvent.preventDefault(); // don't let the browser navigate
+
+            $('#detalhes #title').text(info.event.title);
+            $('#detalhes #start').text(info.event.start.toLocaleString('pt-BR'));
+            $('#detalhes #end').text(info.event.end.toLocaleString('pt-BR'));
+            $('#detalhes').modal('show');
+          },
+        });
+        calendar.render();
+      });
+    </script>
+    <title>Fullcalendar Demo</title>
+  </head>
+  <body>
+    <div id="calendar"></div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="detalhes"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="tituloDetalhes">Detalhes do Evento</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <dl class="row">
+              <dt class="col-sm-4">Título</dt>
+              <dd class="col-sm-6" id="title"></dd>
+            </dl>
+
+            <dl class="row">
+              <dt class="col-sm-4">Início</dt>
+              <dd class="col-sm-6" id="start"></dd>
+            </dl>
+
+            <dl class="row">
+              <dt class="col-sm-4">Fim</dt>
+              <dd class="col-sm-6" id="end"></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CDN - Additional JS -->
+    <!-- CDN - jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
